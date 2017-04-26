@@ -31,6 +31,10 @@ public class Note {
 		this.tags = tags;
 	}
 	
-	
+	public void print(){
+		System.out.println("Name: " + name);
+		System.out.println("Content: " + content);
+		System.out.println("tags: " + tags.toString());
+	}
 
 }
