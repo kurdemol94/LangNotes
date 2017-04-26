@@ -1,15 +1,15 @@
 package model;
 
+import java.util.Arrays;
+
 public class Note {
 	String name;
 	String content;
-	String []tags;
 	
-	public Note(String name, String content, String[] tags) {
+	public Note(String name, String content) {
 		super();
 		this.name = name;
 		this.content = content;
-		this.tags = tags;
 	}
 	
 	public String getName() {
@@ -24,20 +24,35 @@ public class Note {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String[] getTags() {
-		return tags;
-	}
-	public void setTags(String[] tags) {
-		this.tags = tags;
-	}
 	
 	public void print(){
 		System.out.println("Name: " + name);
 		System.out.println("Content: " + content);
-		System.out.println("Tags: ");
-		for (int i = 0; i < tags.length; i++){
-			System.out.println(" " + tags[i]);
-		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Note))
+			return false;
+		Note other = (Note) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 }

@@ -16,23 +16,21 @@ public class CreateNoteController extends AnchorPane{
     @FXML private TextField nameField;
     @FXML private TextArea contentField;
     
-    Main main;
+    MainController main;
     
     public CreateNoteController(){
     }
     
-    public void injectInstance(Main main){
-    	System.out.println("Attempting to inject main into listcontroller");
+    public void injectInstance(MainController main){
     	this.main = main;
-    	System.out.println("listcontroller: done");
 	}
 
     @FXML
     void handleCreateNodeButton(ActionEvent event) throws Exception {
-    	String []tags = tagsField.getText().split(",");
-    	Note note = new Note(nameField.getText(), contentField.getText(), tags);
+    	Note note = new Note(nameField.getText(), contentField.getText());
     	note.print();
-    	main.showListScene();
+    	main.addNoteToSet(note);
+		main.showListScene();
 
     }
 
