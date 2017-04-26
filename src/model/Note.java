@@ -34,7 +34,10 @@ public class Note {
 	public void print(){
 		System.out.println("Name: " + name);
 		System.out.println("Content: " + content);
-		System.out.println("tags: " + tags.toString());
+		System.out.println("Tags: ");
+		for (int i = 0; i < tags.length; i++){
+			System.out.println(" " + tags[i]);
+		}
 	}
 
 }
