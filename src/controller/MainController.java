@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,7 +18,8 @@ public class MainController {
 
 	public MainController(Stage stage) throws Exception {
 		this.stage = stage;
-		set = FXCollections.observableSet();		
+		set = FXCollections.observableSet();
+		insertTestNotes();
 		
 		stage.setTitle("LangNotes");
 
@@ -53,12 +53,19 @@ public class MainController {
 		stage.show();
 	}
 	
-	public void addNoteToSet(Note note){
-		set.add(note);
+	public boolean addNoteToSet(Note note){
+		return set.add(note);
 	}
 	
 	public ObservableSet<Note> getSet(){
 		return set;
+	}
+	
+	private void insertTestNotes(){
+		for (int i = 0; i < 40; i++){
+			Note note = new Note("note"+i, "asdfkhaskdfaskd,mcvx");
+			set.add(note);
+		}
 	}
 
 }
