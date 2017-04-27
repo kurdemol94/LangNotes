@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.ValueAxis;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,6 +41,8 @@ public class ListNotesController {
 	private void handleSearchButton(ActionEvent event){
 		if (searchField.getText().isEmpty()){
 			infoLabel.setText("Enter a value");
+
+			infoLabel.setText("Notes: " + set.size());
 		}
 		else {
 			accordion.getPanes().removeAll(paneList);

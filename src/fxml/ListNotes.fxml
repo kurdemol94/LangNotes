@@ -20,7 +20,7 @@
    <children>
       <ImageView fitHeight="69.0" fitWidth="232.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
          <image>
-            <Image url="@../resources/icon.png" />
+            <Image url="/resources/icon.png" />
          </image>
       </ImageView>
       <Button fx:id="newNoteButton" mnemonicParsing="false" onAction="#handleNewNoteButton" prefHeight="38.0" prefWidth="140.0" text="Create a new LangNote" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />

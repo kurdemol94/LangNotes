@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Arrays;
-
 public class Note {
 	String name;
 	String content;

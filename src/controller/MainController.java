@@ -22,15 +22,16 @@ public class MainController {
 		insertTestNotes();
 		
 		stage.setTitle("LangNotes");
+		stage.setResizable(false);
 
-		FXMLLoader loader1 = new FXMLLoader(getClass().getResource("../fxml/ListNotes.fxml"));
+		FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/fxml/ListNotes.fxml"));
 		listController = new ListNotesController();
 		loader1.setController(listController);
 		Pane listPane = loader1.load();
 		listController.injectInstance(this);
 		listController.setUp();
 
-		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../fxml/CreateNote.fxml"));
+		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/CreateNote.fxml"));
 		createController = new CreateNoteController();
 		loader2.setController(createController);
 		Pane createPane = loader2.load();
