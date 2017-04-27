@@ -12,7 +12,6 @@ import model.Note;
 
 public class CreateNoteController extends AnchorPane{
 
-    @FXML private TextField tagsField;
     @FXML private Button createNoteButton;
     @FXML private TextField nameField;
     @FXML private TextArea contentField;
@@ -26,14 +25,13 @@ public class CreateNoteController extends AnchorPane{
 
     @FXML
     private void handleCreateNodeButton(ActionEvent event) throws Exception {
-    	Note note = new Note(nameField.getText(), contentField.getText());
-    	note.print();
-    	if (!main.addNoteToSet(note)){
+    	if (!main.addNoteToSet(new Note(nameField.getText(), contentField.getText()))){
     		msgLabel.setTextFill(Color.RED);
     		msgLabel.setText("A note with this name already exists!");
-    		
     	}
     	else {
+    		nameField.clear();
+    		contentField.clear();
     		main.showListScene();
     	}
     }

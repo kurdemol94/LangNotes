@@ -1,6 +1,9 @@
 package model;
 
-public class Note {
+import java.io.Serializable;
+
+public class Note implements Serializable{
+	private static final long serialVersionUID = 8922730997543968753L;
 	String name;
 	String content;
 	
@@ -21,11 +24,6 @@ public class Note {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	
-	public void print(){
-		System.out.println("Name: " + name);
-		System.out.println("Content: " + content);
 	}
 
 	@Override

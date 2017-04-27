@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -11,7 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import model.Note;
 
 public class ListNotesController {
@@ -19,45 +19,49 @@ public class ListNotesController {
 	ObservableSet<Note> set;
 	ObservableList<TitledPane> paneList;
 
-	@FXML private Button newNoteButton;
-	@FXML private Accordion accordion;
-	@FXML private Label infoLabel;
-	@FXML private TextField searchField;
-	@FXML private Button searchButton;
+	@FXML
+	private Button newNoteButton;
+	@FXML
+	private Accordion accordion;
+	@FXML
+	private Label infoLabel;
+	@FXML
+	private TextField searchField;
+	@FXML
+	private Button searchButton;
 
 	public void setUp() throws Exception {
 		set = main.getSet();
 		paneList = FXCollections.observableArrayList();
 		generateList();
-
 	}
 
 	@FXML
 	private void handleNewNoteButton(ActionEvent event) throws Exception {
 		main.showCreateScene();
 	}
-	
-	@FXML
-	private void handleSearchButton(ActionEvent event){
-		if (searchField.getText().isEmpty()){
-			infoLabel.setText("Enter a value");
 
+	@FXML
+	private void handleSearchButton(ActionEvent event) {
+		if (searchField.getText().isEmpty()) {
+			infoLabel.setText("Enter a value");
+			generateList();
 			infoLabel.setText("Notes: " + set.size());
-		}
-		else {
+		} else {
 			accordion.getPanes().removeAll(paneList);
 			infoLabel.setText("Searching...");
 			int results = 0;
 			String value = searchField.getText();
-			for (Note n : set){
-				if (n.getName().contains(value) || n.getContent().contains(value)){
-					TitledPane pane = new TitledPane();
-					pane.setText(n.getName());
+			for (Note n : set) {
+				if (n.getName().contains(value) || n.getContent().contains(value)) {
+					HBox box = new HBox();
+					box.getChildren().addAll(new Button("Edit"), new Button("Delete"));
 
-					VBox box = new VBox();
-					box.getChildren().add(new Label(n.getContent()));
-					pane.setContent(box);
+					GridPane grid = new GridPane();
+					grid.addRow(0, new Label(n.getContent()));
+					grid.addRow(1, box);
 
+					TitledPane pane = new TitledPane(n.getName(), grid);
 					paneList.add(pane);
 					accordion.getPanes().add(pane);
 					results++;
@@ -65,7 +69,7 @@ public class ListNotesController {
 				}
 			}
 		}
-		
+
 	}
 
 	public void injectInstance(MainController main) {
@@ -77,22 +81,29 @@ public class ListNotesController {
 			System.out.println("No entries");
 			infoLabel.setText("No entries. Press the button at the top to add notes.");
 		} else {
-			Iterator<Note> it = set.iterator();
 			accordion.getPanes().removeAll(paneList);
-			while (it.hasNext()) {
-				Note n = it.next();
-				TitledPane pane = new TitledPane();
-				pane.setText(n.getName());
+			for (Note n : set) {
+				
+				Button edit = new Button("Edit");
+				edit.setOnAction(e ->{
+					System.out.println("trynna edit note named " + n.getName());
+				});
+				HBox box = new HBox(edit);
+				GridPane grid = new GridPane();
+				grid.addRow(0, new Label(n.getContent()));
+				grid.addRow(1, box);
 
-				VBox box = new VBox();
-				box.getChildren().add(new Label(n.getContent()));
-				pane.setContent(box);
-
+				TitledPane pane = new TitledPane(n.getName(), grid);
+				pane.setLineSpacing(10);
 				paneList.add(pane);
 				accordion.getPanes().add(pane);
 			}
 			infoLabel.setText("Notes: " + set.size());
 		}
 
+	}
+	
+	public void editSelected(){
+		
 	}
 }

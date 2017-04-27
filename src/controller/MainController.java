@@ -14,15 +14,21 @@ public class MainController {
 	Scene createScene;
 	ListNotesController listController;
 	CreateNoteController createController;
+	FileController fileController;
 	ObservableSet<Note> set;
 
 	public MainController(Stage stage) throws Exception {
 		this.stage = stage;
 		set = FXCollections.observableSet();
-		insertTestNotes();
+		
+		fileController = new FileController(set);
+		fileController.loadFromFile();
 		
 		stage.setTitle("LangNotes");
 		stage.setResizable(false);
+		stage.setOnCloseRequest(e -> {
+			fileController.saveToFile();
+		});
 
 		FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/fxml/ListNotes.fxml"));
 		listController = new ListNotesController();
@@ -62,11 +68,11 @@ public class MainController {
 		return set;
 	}
 	
-	private void insertTestNotes(){
-		for (int i = 0; i < 40; i++){
-			Note note = new Note("note"+i, "asdfkhaskdfaskd,mcvx");
-			set.add(note);
-		}
-	}
+//	private void insertTestNotes(){
+//		for (int i = 0; i < 40; i++){
+//			Note note = new Note("note"+i, "asdfkhaskdfaskd,mcvx");
+//			set.add(note);
+//		}
+//	}
 
 }
